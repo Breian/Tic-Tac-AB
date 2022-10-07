@@ -66,6 +66,10 @@ class Game:
         # Do not return any values but set variables  self._has_winner 
         # and self.winner_combo in case of winning combo.
         # Hint: you can scan pre-computed winning combos in self._winning_combos
+        for i in self._winning_combos:
+            if self._current_moves [row][col] == i:
+                self.has_winner = True
+                self.winner_combo = self._current_moves[row][col]
 
 
     def has_winner(self):
