@@ -1,7 +1,7 @@
 import tkinter as tk
 
 from tkinter import font
-from game import Move
+from game import Game, Move
 
 
 class Board(tk.Tk):
@@ -9,7 +9,7 @@ class Board(tk.Tk):
         super().__init__()
         self.title("Tic-Tac-Toe Game")
         self._cells = {}
-        self._game = game
+        self._game : Game = game
         self._create_menu()
         self._create_board_display()
         self._create_board_grid()
