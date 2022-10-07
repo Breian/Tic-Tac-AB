@@ -56,6 +56,14 @@ class Game:
         # contain an empty string (i.e. ""). 
         # Use variables no_winner and move_not_played.
         
+        if self._has_winner(self) == False:
+            no_winner = True
+            if(self._current_moves[move.row][move.col] == ""):
+                move_not_played = True
+            else: move_not_played = False
+        else: no_winner = False
+                            
+        
         return no_winner and move_not_played
 
     def process_move(self, move : Move):
@@ -91,6 +99,7 @@ class Game:
 
     def is_tied(self):
         """Return True if the game is tied, and False otherwise."""
+        # TODO: check whether a tie was reached.
         # There is no winner and all moves have been tried.
         for row in BOARD_SIZE:
             for col in BOARD_SIZE:
@@ -104,7 +113,6 @@ class Game:
     def toggle_player(self):
         """Return a toggled player."""
         self.current_player = next(self._players)
-        # Hint: https://docs.python.org/3/library/functions.html#next
        
     def reset_game(self):
         """Reset the game state to play again."""
