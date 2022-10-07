@@ -74,8 +74,15 @@ class Game:
 
     def is_tied(self):
         """Return True if the game is tied, and False otherwise."""
-        # TODO: check whether a tie was reached.
         # There is no winner and all moves have been tried.
+        for row in BOARD_SIZE:
+            for col in BOARD_SIZE:
+                # if a cell is empty (None) then the game is not finished yet
+                if self._current_moves[row][col] is None:
+                    return False
+        
+        return not self.has_winner()
+
 
     def toggle_player(self):
         """Return a toggled player."""
