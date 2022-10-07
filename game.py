@@ -66,14 +66,31 @@ class Game:
         
         return no_winner and move_not_played
 
-    def process_move(self, move):
+    def process_move(self, move : Move):
         """Process the current move and check if it's a win."""
         row, col = move.row, move.col
         self._current_moves[row][col] = move
-        # TODO: check whether the current move leads to a winning combo.
+        # check whether the current move leads to a winning combo.
         # Do not return any values but set variables  self._has_winner 
         # and self.winner_combo in case of winning combo.
         # Hint: you can scan pre-computed winning combos in self._winning_combos
+
+        if not self.is_valid_move(move):
+            return
+
+        current_player = move.label
+        player_moves = []
+        for move in self._current_moves:
+            if move.label == current_player:
+                player_moves.append((move.row, move.col))
+        
+        for winning_combo in self._winning_combos:
+            for move in winning_combo:
+                if move not in player_moves:
+                    break
+            self.has_winner = True
+            self.winner_combo = winning_combo
+            return
 
 
     def has_winner(self):
@@ -84,6 +101,14 @@ class Game:
         """Return True if the game is tied, and False otherwise."""
         # TODO: check whether a tie was reached.
         # There is no winner and all moves have been tried.
+        for row in BOARD_SIZE:
+            for col in BOARD_SIZE:
+                # if a cell is empty (None) then the game is not finished yet
+                if self._current_moves[row][col].label == "":
+                    return False
+        
+        return not self.has_winner()
+
 
     def toggle_player(self):
         """Return a toggled player."""
